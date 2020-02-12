@@ -1,0 +1,39 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                {% for produit in produits %}
+                    <div class="col-md-4">
+                        <!-- Card -->
+                            {% include 'app/_card-produit.html.twig' %}
+                        <!-- Card -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h3>Catégories</h3>
+            <ul class="list-group">
+            {% for categorie in categories %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ path('singleCategorie', {'id': categorie.id}) }}">{{ categorie.titre }}</a>
+                    <span class="badge badge-primary badge-pill">{{ categorie.produits|length }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+            <hr>
+            <h3>Marques</h3>
+            <ul class="list-group">
+                {% for marque in marques %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ path('singleMarque', {'id': marque.id}) }}">{{ marque.name }}</a>
+                        <span class="badge badge-primary badge-pill">{{ marque.produits|length }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

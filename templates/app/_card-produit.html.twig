@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header">
+        <p>{{ produit.prix }} €</p>
+        <!-- Card image -->
+        <img class="card-img-top" src="{{produit.img}}" alt="Card image cap">
+    </div>
+    <!-- Card content -->
+    <div class="card-body">
+        <!-- Title -->
+        <h4 class="card-title"><a>{{produit.titre}}</a></h4>
+        <!-- Text -->
+        <p class="card-text">{{ produit.description }}</p>
+        <!-- Button -->
+        <a href="{{ path('produit', {'id': produit.id}) }}" class="btn btn-primary">Voir</a>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <a href="{{ path('singleCategorie', {'id': produit.categorie.id}) }}">{{ produit.categorie.titre }}</a>
+        <a href="{{ path('singleMarque', {'id': produit.marque.id}) }}">{{ produit.marque.name }}</a>
+    </div>
+</div>

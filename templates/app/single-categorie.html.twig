@@ -1,0 +1,17 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <header class="d-flex justify-content-center align-items-center" style="height: 200px; background: url('{{ categorie.img }}')">
+        <h3>{{ categorie.titre }}</h3>
+    </header>
+    <div class="col-md-12 my-3">
+        <div class="row">
+            {% for produit in categorie.produits %}
+                <div class="col-md-4">
+                    {% include 'app/_card-produit.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

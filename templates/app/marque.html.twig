@@ -1,0 +1,19 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        {% for marque in marques %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <a href="{{ path('singleMarque', { 'id': marque.id }) }}"><h3>{{ marque.name }}</h3></a>
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ marque.logo }}" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

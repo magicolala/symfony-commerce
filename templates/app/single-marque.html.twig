@@ -1,0 +1,18 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <header class="d-flex justify-content-center align-items-center" style="height: 200px; background: url('{{ marque.logo }}')">
+        <h3><a href="{{ marque.lien }}">{{ marque.lien }}</a></h3>
+    </header>
+    <div class="col-md-12 my-3">
+        <h3>{{ marque.name }}</h3>
+
+        <div class="row">
+            {% for produit in marque.produits %}
+                <div class="col-md-4">
+                    {% include 'app/_card-produit.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

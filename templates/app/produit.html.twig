@@ -1,0 +1,76 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+                <div class="text-white d-flex justify-content-between">
+                    <p>Categorie :
+                        <a href="{{ path('singleCategorie', {'id': produit.categorie.id}) }}">
+                            {{ produit.categorie.titre }}
+                        </a>
+                    </p>
+                    <strong>{{ produit.titre }}</strong>
+                    <p>Marque : <a href="{{ path('singleMarque', {'id': produit.marque.id}) }}">{{ produit.marque.name }}</a></p>
+                </div>
+                <div class="text-center">
+                    <img src="{{ produit.img }}" class="img-fluid" alt="">
+                </div>
+                <div class="text-white text-center py-5 px-4">
+                    <div>
+                        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>{{ produit.prix|number_format(2, ',', ' ') }} €</strong></h2>
+                        <p class="mx-5 mb-5">{{produit.description}}
+                        </p>
+{#                        <a class="btn btn-outline-white btn-md"><i class="fas fa-clone left"></i> View project</a>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h3 class="text-center">
+                    Note
+                </h3>
+                <div class="my-rating text-center"></div>
+                <hr>
+                <h3 class="text-center">Commentaires</h3>
+                <hr>
+                {% for commentaire in produit.commentaires|reverse %}
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>{{ commentaire.utilisateur }}</strong>
+                        </div>
+                        <div class="col-md-9">
+                            <p>{{ commentaire.commentaire }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <h3>Produit similaire</h3>
+    <div class="row">
+        {% for produit in produit.categorie.produits %}
+            <div class="col-md-3">
+                {% include 'app/_card-produit.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(".my-rating").starRating({
+            starSize: 25,
+            callback: function(currentRating, $el){
+                // make a server call here
+            }
+        }).starRating('setRating', {{produit.note}});
+        $('.my-rating').starRating('setReadOnly', true);
+    </script>
+{% endblock javascripts %}
+
