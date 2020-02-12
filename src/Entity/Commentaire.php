@@ -32,6 +32,11 @@ class Commentaire
      */
     private $produit;
 
+    public function __toString()
+    {
+        return 'Commentaire ' . $this->id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

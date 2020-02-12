@@ -43,6 +43,11 @@ class Blog
      */
     private $categorie;
 
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

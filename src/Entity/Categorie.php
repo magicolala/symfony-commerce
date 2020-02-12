@@ -46,6 +46,11 @@ class Categorie
         $this->blogs = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
