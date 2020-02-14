@@ -1,20 +1,24 @@
-<div class="card">
-    <div class="card-header">
-        <p>{{ produit.prix }} €</p>
+<div class="card hoverable">
+    <div class="view p-2">
+
         <!-- Card image -->
-        <img class="card-img-top" src="{{produit.img}}" alt="Card image cap">
+        <img class="card-img-top" src="{{ produit.img }}" alt="Card image cap">
+        <a href="{{ path('produit', {'id': produit.id}) }}">
+            <div class="mask rgba-white-slight"></div>
+        </a>
     </div>
     <!-- Card content -->
-    <div class="card-body">
+    <div class="card-body text-center">
+        <h5><a href="{{ path('singleCategorie', {'id': produit.categorie.id}) }}">{{ produit.categorie }}</a></h5>
         <!-- Title -->
-        <h4 class="card-title"><a>{{produit.titre}}</a></h4>
+        <h4 class="card-title"><strong>{{ produit.titre }}</strong></h4>
         <!-- Text -->
         <p class="card-text">{{ produit.description }}</p>
         <!-- Button -->
-        <a href="{{ path('produit', {'id': produit.id}) }}" class="btn btn-primary">Voir</a>
+        <a href="{{ path('produit', {'id': produit.id}) }}" class="btn btn-outline-primary ">Voir</a>
     </div>
     <div class="card-footer d-flex justify-content-between">
-        <a href="{{ path('singleCategorie', {'id': produit.categorie.id}) }}">{{ produit.categorie.titre }}</a>
+        <span>{{ produit.prix|number_format(2, ',', ' ') }} €</span>
         <a href="{{ path('singleMarque', {'id': produit.marque.id}) }}">{{ produit.marque.name }}</a>
     </div>
 </div>

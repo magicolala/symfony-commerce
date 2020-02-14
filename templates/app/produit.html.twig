@@ -48,13 +48,17 @@
                     </div>
                     <hr>
                 {% endfor %}
+                <h3>Laisser un nouveau commentaire</h3>
+                <small class="text-muted">(Il sera valider avant publication)</small>
+                {{ form(form) }}
             </div>
         </div>
     </div>
     <h3>Produit similaire</h3>
-    <div class="row">
+    <div class="row grid">
         {% for produit in produit.categorie.produits %}
-            <div class="col-md-3">
+            <div class="grid-sizer col-md-3"></div>
+            <div class="col-md-3 grid-item mb-4">
                 {% include 'app/_card-produit.html.twig' %}
             </div>
         {% endfor %}
@@ -71,6 +75,13 @@
             }
         }).starRating('setRating', {{produit.note}});
         $('.my-rating').starRating('setReadOnly', true);
+        $(document).ready(function() {
+            $('.grid').masonry({
+                itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+        });
     </script>
 {% endblock javascripts %}
 

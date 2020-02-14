@@ -12,10 +12,10 @@
                 {% for blog in blogs %}
                     <div class="col-md-12 my-2">
                         <!--Card-->
-                        <div class="card">
+                        <div class="card card-cascade narrower">
 
                             <!--Card image-->
-                            <div class="view">
+                            <div class="view view-cascade">
                                 <img src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg" class="card-img-top"
                                      alt="photo">
                                 <a href="#">
@@ -32,7 +32,7 @@
                                 </div>
                                 <!--Text-->
                                 <p class="card-text">{{ blog.content }}</p>
-                                <a href="#" class="btn btn-primary">Lire</a>
+                                <a href="{{ path('singleBlog', {'id': blog.id}) }}" class="btn btn-primary">Lire</a>
                             </div>
 
                         </div>

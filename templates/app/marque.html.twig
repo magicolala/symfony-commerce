@@ -1,19 +1,59 @@
 {% extends 'app/base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        {% for marque in marques %}
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
+{#    <div class="container">#}
+{#        <div class="grid">#}
+{#        {% for marque in marques %}#}
+{#            <div class="grid-sizer col-md-3"></div>#}
+{#            <div class="grid-item-content {% if loop.index % 2 == 0 %} col-md-6 {% else %} col-md-4 {% endif %}">#}
+{#                <div class="card">#}
+{#                    <div class="card-header">#}
+{#                        <a href="{{ path('singleMarque', { 'id': marque.id }) }}"><h3>{{ marque.name }}</h3></a>#}
+{#                    </div>#}
+{#                    <div class="card-body text-center">#}
+{#                        <img src="{{ marque.logo }}" alt="" class="img-fluid">#}
+{#                    </div>#}
+{#                </div>#}
+
+{#            </div>#}
+
+{#        {% endfor %}#}
+
+{#        </div>#}
+{#    </div>#}
+    <div class="container">
+
+        <h1 class="my-4 font-weight-bold">Les marques</h1>
+
+        <div class="grid">
+            <div class="grid-sizer col-md-3"></div>
+            {% for marque in marques %}
+            <div class="grid-item {% if loop.index % 3 == 0 %} col-md-6 {% else %} col-md-6 {% endif %} mb-4">
+                <div class="card hoverable">
+                    <div class="card-header text-center">
                         <a href="{{ path('singleMarque', { 'id': marque.id }) }}"><h3>{{ marque.name }}</h3></a>
                     </div>
-                    <div class="card-body">
-                        <img src="{{ marque.logo }}" alt="" class="img-fluid">
+                    <div class="card-body text-center">
+                        <a href="{{ path('singleMarque', { 'id': marque.id }) }}"><img src="{{ marque.logo }}" alt="" class="img-fluid"></a>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.grid').masonry({
+                itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+        });
+    </script>
 {% endblock %}
 

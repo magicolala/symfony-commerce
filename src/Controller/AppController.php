@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
 use App\Repository\BlogRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\MarqueRepository;
@@ -12,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class AppController extends AbstractController
 {
@@ -63,13 +66,27 @@ class AppController extends AbstractController
      * @Route("/produit/{id}", name="produit")
      * @param ProduitRepository $produitRepository
      * @param $id
+     * @param Request $request
      * @return Response
      */
-    public function produit(ProduitRepository $produitRepository, $id)
+    public function produit(ProduitRepository $produitRepository, $id, Request $request)
     {
         $produit = $produitRepository->find($id);
 
-        return $this->render('app/produit.html.twig', ['produit' => $produit]);
+        $commentaire = new Commentaire();
+        $commentaire->setProduit($produit);
+
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+        }
+
+        return $this->render('app/produit.html.twig', ['produit' => $produit, 'form' => $form->createView()]);
     }
 
     /**
@@ -105,8 +122,12 @@ class AppController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function blog(BlogRepository $blogRepository, CategorieRepository $categorieRepository, PaginatorInterface $paginator, Request $request)
-    {
+    public function blog(
+        BlogRepository $blogRepository,
+        CategorieRepository $categorieRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ) {
         $query = $blogRepository->findByPublished(true);
 
         $pagination = $paginator->paginate(
@@ -118,5 +139,32 @@ class AppController extends AbstractController
         $categories = $categorieRepository->findAll();
 
         return $this->render('app/blogs.html.twig', ['blogs' => $pagination, 'categories' => $categories]);
+    }
+
+    /**
+     * @Route("/article/{id}", name="singleBlog")
+     * @param $id
+     * @param Request $request
+     * @param BlogRepository $blogRepository
+     * @return Response
+     */
+    public function singleBlog($id, Request $request, BlogRepository $blogRepository)
+    {
+        $article = $blogRepository->find($id);
+
+        $commentaire = new Commentaire();
+        $commentaire->setBlog($article);
+
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+        }
+
+        return $this->render('app/single-blog.html.twig', ['article' => $article, 'form' => $form->createView()]);
     }
 }

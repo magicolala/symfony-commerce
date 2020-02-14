@@ -22,39 +22,40 @@
         {% block style %}{% endblock style %}
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('home') }}">Home</a>
-                </li>
-                <li class="nav-item {% if app.request.attributes.get('_route') == 'categorie' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('categorie') }}">Categories</a>
-                </li>
-                <li class="nav-item {% if app.request.attributes.get('_route') == 'marque' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('marque') }}">Marques</a>
-                </li>
-                <li class="nav-item {% if app.request.attributes.get('_route') == 'blogs' %}active{% endif %}">
-                    <a class="nav-link" href="{{ path('blogs') }}">Blog</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary">
+        <div class="container" style="background: inherit;">
+            <a class="navbar-brand" href="#">E-commerce</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'categorie' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('categorie') }}">Categories</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'marque' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('marque') }}">Marques</a>
+                    </li>
+                    <li class="nav-item {% if app.request.attributes.get('_route') == 'blogs' %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('blogs') }}">Blog</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </div>
+
     </nav>
-    <div class="container">
+    <div class="container" style="padding-top: 80px;">
         {% block body %}{% endblock %}
     </div>
-
-
-
         <!-- jQuery -->
         <script type="text/javascript" src="{{ asset('dist/js/jquery.min.js')}}"></script>
         <!-- Bootstrap tooltips -->
@@ -64,6 +65,7 @@
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="{{ asset('dist/js/mdb.min.js') }}"></script>
         <script src="{{asset('dist/js/jquery.star-rating-svg.js')}}"></script>
+        <script src="{{ asset('dist/js/addons/masonry.pkgd.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

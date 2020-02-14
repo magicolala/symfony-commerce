@@ -1,8 +1,61 @@
 easy_admin:
-    entities:
-        - App\Entity\Categorie
-        - App\Entity\Blog
-        - App\Entity\Commentaire
-        - App\Entity\Marque
-        - App\Entity\Produit
-        - App\Entity\User
+  site_name: 'Admin'
+  design:
+    menu:
+      - {label: "Produit"}
+      - label: "Catégorie"
+        children:
+          - {entity: Categorie, label: "Liste des catégories", icon: "th-list"}
+          - {entity: Categorie, label: "Ajouter une catégorie", icon: "plus", params: {action: 'new'}}
+      - label: "Marque"
+        children:
+          - {entity: Marque, label: "Liste des marques", icon: "th-list"}
+          - {entity: Marque, label: "Ajouter une marque", icon: "plus", params: {action: 'new'}}
+      - label: "Produit"
+        children:
+          - {entity: Produit, label: "Liste des produits", icon: "th-list"}
+          - {entity: Produit, label: "Ajouter un produit", icon: "plus", params: {action: 'new'}}
+      - label: "Commentaire"
+        children:
+          - {entity: Commentaire, label: "Liste des commentaires", icon: "th-list"}
+          - {entity: Commentaire, label: "Ajouter un commentaire", icon: "plus", params: {action: 'new'}}
+      - {label: "Blog"}
+      - label: "Catégorie"
+        children:
+          - {entity: Categorie, label: "Liste des catégories", icon: "th-list"}
+          - {entity: Categorie, label: "Ajouter une catégorie", icon: "plus", params: {action: 'new'}}
+      - label: "Blog"
+        children:
+          - {entity: Blog, label: "Liste des articles", icon: "th-list"}
+          - {entity: Blog, label: "Ajouter un article", icon: "plus", params: {action: 'new'}}
+      - label: "Commentaire"
+        children:
+          - {entity: Commentaire, label: "Liste des commentaires", icon: "th-list"}
+          - {entity: Commentaire, label: "Ajouter un commentaire", icon: "plus", params: {action: 'new'}}
+      - {label: "Utilisateur"}
+      - label: "Utilisateur"
+        children:
+          - {entity: User, label: "Liste des utilisateurs", icon: "th-list"}
+          - {entity: User, label: "Ajouter un utilisateur", icon: "plus", params:  {action: 'new'}}
+
+  entities:
+    Categorie:
+      class: App\Entity\Categorie
+    Blog:
+      class: App\Entity\Blog
+      form:
+        fields:
+          - titre
+          - {property: 'content', type: 'text_editor'}
+          - is_published
+          - categorie
+          - commentaires
+    Commentaire:
+      class: App\Entity\Commentaire
+    Marque:
+      class: App\Entity\Marque
+    Produit:
+      class: App\Entity\Produit
+    User:
+      class: App\Entity\User
+

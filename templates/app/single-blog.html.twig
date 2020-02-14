@@ -1,0 +1,53 @@
+{% extends 'app/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+                <div class="text-white d-flex justify-content-between">
+                    <p>Categorie :
+                        <a href="{{ path('singleCategorie', {'id': article.categorie.id}) }}">
+                            {{ article.categorie.titre }}
+                        </a>
+                    </p>
+{#                    <strong>{{ article.titre }}</strong>#}
+                </div>
+                <div class="text-center">
+                    <img src="{{ article.img }}" class="img-fluid" alt="">
+                </div>
+                <div class="text-white text-center py-5 px-4">
+                    <div>
+                        <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>{{article.titre}}</strong></h2>
+                        <p class="mx-5 mb-5">{{article.content|raw}}
+                        </p>
+                        {#                        <a class="btn btn-outline-white btn-md"><i class="fas fa-clone left"></i> View project</a>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h3 class="text-center">Commentaires</h3>
+                <hr>
+                {% for commentaire in article.commentairesPublished|reverse %}
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>{{ commentaire.utilisateur }}</strong>
+                        </div>
+                        <div class="col-md-9">
+                            <p>{{ commentaire.commentaire }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <h3>Laisser un nouveau commentaire</h3>
+                <small class="text-muted">(Il sera valider avant publication)</small>
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

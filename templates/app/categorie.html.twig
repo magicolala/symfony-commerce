@@ -3,11 +3,12 @@
 {% block body %}
     <div class="row">
         {% for categorie in categories %}
-            <div class="col-md-12 my-3">
-                <h3>{{ categorie.titre }}</h3>
-                <div class="row">
+            <div class="col-md-12 my-3 text-center">
+                <h2 class="mb-4">{{ categorie.titre }}</h2>
+                <div class="row grid">
+                    <div class="col-md-3 grid-sizer"></div>
                     {% for produit in categorie.produits %}
-                        <div class="col-md-4">
+                        <div class="{% if loop.index % 4 == 0 %} col-md-3 {% else %} col-md-3 {% endif %} grid-item mb-4">
                             {% include 'app/_card-produit.html.twig' %}
                         </div>
                     {% endfor %}
@@ -17,3 +18,15 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.grid').masonry({
+                itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+        });
+    </script>
+{% endblock %}

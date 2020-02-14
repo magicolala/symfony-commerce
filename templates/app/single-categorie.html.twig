@@ -1,17 +1,31 @@
 {% extends 'app/base.html.twig' %}
 
 {% block body %}
-    <header class="d-flex justify-content-center align-items-center" style="height: 200px; background: url('{{ categorie.img }}')">
-        <h3>{{ categorie.titre }}</h3>
+    <header class="d-flex justify-content-center align-items-center" style="height: 200px; background: url('{{ categorie.img }}'); background-position: center;">
+        <h2 style="text-shadow: 1px 1px 2px whitesmoke;">{{ categorie.titre }}</h2>
     </header>
     <div class="col-md-12 my-3">
-        <div class="row">
+        <div class="row grid">
+            <div class="grid-sizer col-md-4"></div>
             {% for produit in categorie.produits %}
-                <div class="col-md-4">
+                <div class="col-md-4 grid-item mb-4">
                     {% include 'app/_card-produit.html.twig' %}
                 </div>
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.grid').masonry({
+                itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+        });
+    </script>
 {% endblock %}
 
